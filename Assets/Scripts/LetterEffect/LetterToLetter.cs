@@ -14,13 +14,7 @@ public class LetterToLetter : MonoBehaviour
     {
         textLetter.text=frase;
         StartCoroutine("typeLetter", frase);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    }   
     IEnumerator typeLetter(string txt)
     {
         textLetter.text = "";
@@ -28,7 +22,9 @@ public class LetterToLetter : MonoBehaviour
         for(int letra=0; letra < txt.Length; letra++)
         {
             textLetter.text += txt[letra];
-            if (txt[letra] == ' ')
+            if (txt[letra] == ' ') // utiliza o apóstrolo em vez da aspa pois quando utilizamos aspa nos referimos
+                                   // a String e quando falamos de uma letra específica ela é vista como um character,
+                                   // por isto tem que usar apóstrofo. 
             {
                 yield return new WaitForSeconds(wordDelay);
             }
