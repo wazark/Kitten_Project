@@ -386,8 +386,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textLetter: {fileID: 505817381}
   delayType: 0.05
-  wordDelay: 0.2
-  frase: Testando este modo de texto.
+  wordDelay: 0.1
+  fraseDelay: 1
+  frases:
+  - Testando
+  - "este novo m\xE9todo"
+  - para criar um efeito de texto com possibilidade
+  - de uso tanto em loading
+  - "quanto at\xE9 mesmo em uma conversa."
 --- !u!4 &677783984
 Transform:
   m_ObjectHideFlags: 0

@@ -8,28 +8,32 @@ public class LetterToLetter : MonoBehaviour
     public Text textLetter;
     public float delayType;
     public float wordDelay;
-    public string frase;
+    public float fraseDelay;
+    public string[] frases;
+    private int idFrase;
+    
 
     void Start()
-    {
-        textLetter.text=frase;
-        StartCoroutine("typeLetter", frase);
+    {        
+        StartCoroutine("typeLetter");
     }   
-    IEnumerator typeLetter(string txt)
-    {
-        textLetter.text = "";
+    IEnumerator typeLetter()
+    {        
+        for(idFrase = 0; idFrase < frases.Length; idFrase++) {
+            textLetter.text = "";
 
-        for(int letra=0; letra < txt.Length; letra++)
-        {
-            textLetter.text += txt[letra];
-            if (txt[letra] == ' ') // utiliza o apóstrolo em vez da aspa pois quando utilizamos aspa nos referimos
-                                   // a String e quando falamos de uma letra específica ela é vista como um character,
-                                   // por isto tem que usar apóstrofo. 
+            for (int letra=0; letra < frases[idFrase].Length; letra++)
             {
+            textLetter.text += frases[idFrase][letra];
+                if (frases[idFrase][letra] == ' ') // utiliza o apóstrolo em vez da aspa pois quando utilizamos aspa nos referimos a String e quando falamos de uma letra específica ela é vista como um character, por isto tem que usar apóstrofo. 
+                {
                 yield return new WaitForSeconds(wordDelay);
-            }
+                }
+                yield return new WaitForSeconds(delayType);
 
-            yield return new WaitForSeconds(delayType);
+            }
+            yield return new WaitForSeconds(fraseDelay);
+
         }
     }
 }
