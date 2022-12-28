@@ -7,6 +7,7 @@ public class LetterToLetter : MonoBehaviour
 {
     public Text textLetter;
     public float delayType;
+    public float wordDelay;
     public string frase;
 
     void Start()
@@ -27,6 +28,10 @@ public class LetterToLetter : MonoBehaviour
         for(int letra=0; letra < txt.Length; letra++)
         {
             textLetter.text += txt[letra];
+            if (txt[letra] == ' ')
+            {
+                yield return new WaitForSeconds(wordDelay);
+            }
 
             yield return new WaitForSeconds(delayType);
         }

@@ -385,7 +385,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textLetter: {fileID: 505817381}
-  delayType: 0.3
+  delayType: 0.05
+  wordDelay: 0.2
   frase: Testando este modo de texto.
 --- !u!4 &677783984
 Transform:
