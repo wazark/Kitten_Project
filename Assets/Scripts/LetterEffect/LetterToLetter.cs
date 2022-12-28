@@ -22,9 +22,12 @@ public class LetterToLetter : MonoBehaviour
     }
     IEnumerator typeLetter(string txt)
     {
+        textLetter.text = "";
+
         for(int letra=0; letra < txt.Length; letra++)
         {
-            print(txt[letra]);
+            textLetter.text += txt[letra];
+
             yield return new WaitForSeconds(delayType);
         }
     }
