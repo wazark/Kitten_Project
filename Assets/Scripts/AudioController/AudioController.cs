@@ -12,7 +12,7 @@ public class AudioController : MonoBehaviour
     {
         if(PlayerPrefs.GetInt("Initialize") == 0)
         {
-            PlayerPrefs.GetFloat("musicVolume",0.5f);
+            PlayerPrefs.GetFloat("musicVolume", 0.3f);
             PlayerPrefs.GetInt("Initialize", 1);
         }
 
