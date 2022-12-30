@@ -9,6 +9,7 @@ public class MenuController : MonoBehaviour
     public GameObject gameTitulo;
     public Text txtPressAnyButton;
     public float cooldownTitle;
+    public GameObject buttonsMainMenu;
 
     
     void Update()
@@ -22,6 +23,7 @@ public class MenuController : MonoBehaviour
         {
             txtPressAnyButton.enabled = false;
             StartCoroutine("cooldownToShowTitle", cooldownTitle);
+            buttonsMainMenu.SetActive(true);
         }
     }
     IEnumerator cooldownToShowTitle(float cdTitle)

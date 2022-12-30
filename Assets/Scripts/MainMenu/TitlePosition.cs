@@ -6,8 +6,9 @@ public class TitlePosition : MonoBehaviour
 {
     public Animator titleAnimator;
     public Vector3 defaultScale;
-    
-        
+    public GameObject buttonsMainMenu;
+
+
     void Start()
     {
         StartCoroutine("activeTrigger"); 
@@ -20,5 +21,9 @@ public class TitlePosition : MonoBehaviour
         }
         yield return new WaitForSecondsRealtime(0.2f);
         StartCoroutine("activeTrigger");
+    }
+    public void ShowButtons()
+    {
+        buttonsMainMenu.SetActive(true);
     }
 }
