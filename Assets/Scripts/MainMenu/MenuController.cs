@@ -22,6 +22,7 @@ public class MenuController : MonoBehaviour
     [Header("Cooldown")]
     public int musicIndexMainMenu;
 
+    private bool isbuttonPressed;
 
     private void Start()
     {
@@ -35,10 +36,11 @@ public class MenuController : MonoBehaviour
 
     public void pressAnyButtonToStart()
     {
-        if(Input.anyKeyDown == true)
+        if(Input.anyKeyDown == true && isbuttonPressed == false )
         {
+            isbuttonPressed = true;
             txtPressAnyButton.enabled = false;
-            StartCoroutine("cooldownToShowTitle", cooldownTitle);           
+            StartCoroutine("cooldownToShowTitle", cooldownTitle);            
         }
     }
 
@@ -47,6 +49,7 @@ public class MenuController : MonoBehaviour
         yield return new WaitForSeconds(cdTitle);
         gameTitulo.SetActive(true);
         _globalAudioController.playGameMusic(musicIndexMainMenu);
+        print("teste");
     }
 
     public void showOptions(bool isOptionVisible)

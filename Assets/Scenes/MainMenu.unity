@@ -3563,6 +3563,7 @@ MonoBehaviour:
   optionsUI: {fileID: 98751830}
   txtPressAnyButton: {fileID: 848834926}
   cooldownTitle: 1
+  musicIndexMainMenu: 4
 --- !u!114 &1878725752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3575,7 +3576,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5095e836eff3a5b46a227ae672d09ea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _globalAudioController: {fileID: 0}
   musicSlider: {fileID: 1790368337}
   sfxSlider: {fileID: 47516417}
 --- !u!1 &1913196637
