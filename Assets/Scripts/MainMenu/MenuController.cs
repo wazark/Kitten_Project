@@ -7,8 +7,7 @@ using UnityEngine.SceneManagement;
 public class MenuController : MonoBehaviour
 {
     [Header("GameObjects")]
-    public GameObject gameTitulo;
-    public GameObject musicSource;
+    public GameObject gameTitulo;    
     public GameObject buttons;
     public GameObject optionsUI;
     
@@ -36,8 +35,7 @@ public class MenuController : MonoBehaviour
     IEnumerator cooldownToShowTitle(float cdTitle)
     {
         yield return new WaitForSeconds(cdTitle);
-        gameTitulo.SetActive(true);
-        musicSource.SetActive(true);
+        gameTitulo.SetActive(true);//focar aqui        
     }
 
     public void showOptions(bool isOptionVisible)

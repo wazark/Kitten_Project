@@ -6,54 +6,38 @@ using UnityEngine.UI;
 
 public class AudioController : MonoBehaviour
 {
+    public GlobalAudioController _globalAudioController;
+
     [Header("Audio Settings")]
-    public Slider musicSlider;
-    public AudioSource musicSource;
-
-    public Slider sfxSlider;
-    public AudioSource sfxSource;
-
-    public AudioClip[] gameMusics;
+    public Slider musicSlider;    
+    public Slider sfxSlider;    
+    
 
 
     void Start()
     {
-        if(PlayerPrefs.GetInt("firstBoot") == 0)
-        {
-            PlayerPrefs.SetFloat("musicVol", 0.5f);
-            PlayerPrefs.SetFloat("sfxVol", 0.3f);
-            PlayerPrefs.SetInt("firstBoot", 1);
-        }
-
-        float mVolume = PlayerPrefs.GetFloat("musicVol");
-        float sVolume = PlayerPrefs.GetFloat("sfxVol");
-
-        musicSlider.value = mVolume;
-        musicSource.volume = mVolume;
-
-        sfxSlider.value = sVolume;
-        sfxSource.volume = sVolume;
+        _globalAudioController = FindObjectOfType(typeof(GlobalAudioController)) as GlobalAudioController;        
     }        
   
     public void sfxVolume()
     {
-        sfxSource.volume = sfxSlider.value;
+        _globalAudioController.sfxSource.volume = sfxSlider.value;
     }
 
     public void musicVolume()
     {
-        musicSource.volume = musicSlider.value;
+        _globalAudioController.musicSource.volume = musicSlider.value;
     }
     
     public void buttonConfirm()
     {
-        PlayerPrefs.SetFloat("musicVol" , musicSlider.value); 
-        PlayerPrefs.SetFloat("sfxVol" , sfxSlider.value);
+        PlayerPrefs.SetFloat("musicVolume", musicSlider.value); 
+        PlayerPrefs.SetFloat("sfxVolume", sfxSlider.value);
     }
 
     public void buttonCancel()
     {
-        musicSlider.value = PlayerPrefs.GetFloat("musicVol");
-        sfxSlider.value = PlayerPrefs.GetFloat("sfxVol");
+        musicSlider.value = PlayerPrefs.GetFloat("musicVolume");
+        sfxSlider.value = PlayerPrefs.GetFloat("sfxVolume");
     }
 }

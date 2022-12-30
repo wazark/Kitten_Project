@@ -123,6 +123,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &42343947
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 42343949}
+  - component: {fileID: 42343948}
+  m_Layer: 0
+  m_Name: SceneTransition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &42343948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42343947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a370fd76359485147b4d085edc54712e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: MainMenu
+--- !u!4 &42343949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42343947}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -32.578785, y: -0.20370394, z: -0.010720171}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &286595803
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +327,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -415,7 +460,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -512,8 +557,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 1657207911}
   sfxSource: {fileID: 286595804}
-  allGameMusic: []
-  allGameSounds: []
+  allGameMusic:
+  - {fileID: 8300000, guid: 350427b94c7f34179929278d75865bb8, type: 3}
+  - {fileID: 8300000, guid: ac257a04392317440a5092f58240b043, type: 3}
+  - {fileID: 8300000, guid: 8a9178f3fcd234bb5bafb0b60d00206d, type: 3}
+  - {fileID: 8300000, guid: 948ad3a4a3fdd5148add94e459901ed6, type: 3}
+  - {fileID: 8300000, guid: e4cfb76f4caa7495e862f8e8cb9f37c9, type: 3}
+  - {fileID: 8300000, guid: 1a12ccfe269cf480b9d8c5cc4eb6f438, type: 3}
+  - {fileID: 8300000, guid: 4dd88d698970b4edebfcd8939c2adc7d, type: 3}
+  allGameSounds:
+  - {fileID: 8300000, guid: 731eb2b6a24271949bdede27c85db047, type: 3}
+  - {fileID: 8300000, guid: cb6d57f8ad7535845936b8b508ca8cd1, type: 3}
 --- !u!114 &2129368794
 MonoBehaviour:
   m_ObjectHideFlags: 0
