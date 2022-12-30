@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,10 +13,12 @@ public class AudioController : MonoBehaviour
     public Slider sfxSlider;
     public AudioSource sfxSource;
 
+    public AudioClip[] gameMusics;
+
 
     void Start()
-    {        
-         if(PlayerPrefs.GetInt("firstBoot") == 0)
+    {
+        if(PlayerPrefs.GetInt("firstBoot") == 0)
         {
             PlayerPrefs.SetFloat("musicVol", 0.5f);
             PlayerPrefs.SetFloat("sfxVol", 0.3f);
