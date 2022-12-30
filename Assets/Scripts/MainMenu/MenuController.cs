@@ -6,21 +6,30 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
+    [Header("GameObjects")]
     public GameObject gameTitulo;
     public GameObject musicSource;
-    public GameObject optionsUI;
     public GameObject buttons;
-    public Text txtPressAnyButton;
-    public float cooldownTitle;
+    public GameObject optionsUI;
     
 
-    
+    [Header("Text")]
+    public Text txtPressAnyButton;
+
+    [Header("Cooldown")]
+    public float cooldownTitle;
+
+    [Header("Option Sliders")]
+    public Slider[] optionSlider;
+
+
+
     void Update()
     {
-        PressAnyButtonToStart();
+        pressAnyButtonToStart();
     }
 
-    public void PressAnyButtonToStart()
+    public void pressAnyButtonToStart()
     {
         if(Input.anyKeyDown == true)
         {
@@ -28,6 +37,7 @@ public class MenuController : MonoBehaviour
             StartCoroutine("cooldownToShowTitle", cooldownTitle);           
         }
     }
+
     IEnumerator cooldownToShowTitle(float cdTitle)
     {
         yield return new WaitForSeconds(cdTitle);
@@ -44,6 +54,7 @@ public class MenuController : MonoBehaviour
         else
             optionsUI.SetActive(false);
     }
+
     public void showButtons(bool isButtonsVisible)
     {
         if (isButtonsVisible == true)
@@ -52,5 +63,15 @@ public class MenuController : MonoBehaviour
         }
         else
             buttons.SetActive(false);
+    }
+
+    public void sfxVolume()
+    {
+
+    }
+
+    public void musicVolume()
+    {
+
     }
 }

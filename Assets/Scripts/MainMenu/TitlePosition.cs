@@ -22,7 +22,7 @@ public class TitlePosition : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.2f);
         StartCoroutine("activeTrigger");
     }
-    public void ShowButtons()
+    public void showButtons()
     {
         buttonsMainMenu.SetActive(true);
     }
