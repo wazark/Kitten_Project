@@ -275,13 +275,14 @@ GameObject:
   - component: {fileID: 100127731}
   - component: {fileID: 100127730}
   - component: {fileID: 100127733}
+  - component: {fileID: 100127734}
   m_Layer: 0
   m_Name: titulo_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &100127730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,6 +386,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &100127734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100127729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1b31b1debed33245b41ae9617189c42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleAnimator: {fileID: 100127733}
+  defaultScale: {x: 1.5, y: 1.5, z: 1}
 --- !u!1 &182221113
 GameObject:
   m_ObjectHideFlags: 0
@@ -1626,6 +1641,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1878725750}
+  - component: {fileID: 1878725751}
   m_Layer: 0
   m_Name: MainMenuController
   m_TagString: Untagged
@@ -1648,6 +1664,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1878725751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1878725749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a56fab8c1b5871b4fa58cd178f4cd28e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameTitulo: {fileID: 100127729}
+  txtPressAnyButton: {fileID: 848834926}
+  cooldownTitle: 1
 --- !u!1 &1913196637
 GameObject:
   m_ObjectHideFlags: 0
