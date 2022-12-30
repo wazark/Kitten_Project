@@ -6,17 +6,27 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
+    private GlobalAudioController _globalAudioController;
+
     [Header("GameObjects")]
     public GameObject gameTitulo;    
     public GameObject buttons;
     public GameObject optionsUI;
     
-
     [Header("Text")]
     public Text txtPressAnyButton;
 
     [Header("Cooldown")]
-    public float cooldownTitle;    
+    public float cooldownTitle;
+
+    [Header("Cooldown")]
+    public int musicIndexMainMenu;
+
+
+    private void Start()
+    {
+        _globalAudioController = FindObjectOfType(typeof(GlobalAudioController)) as GlobalAudioController;
+    }
 
     void Update()
     {
@@ -35,7 +45,8 @@ public class MenuController : MonoBehaviour
     IEnumerator cooldownToShowTitle(float cdTitle)
     {
         yield return new WaitForSeconds(cdTitle);
-        gameTitulo.SetActive(true);//focar aqui        
+        gameTitulo.SetActive(true);
+        _globalAudioController.playGameMusic(musicIndexMainMenu);
     }
 
     public void showOptions(bool isOptionVisible)

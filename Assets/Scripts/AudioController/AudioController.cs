@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class AudioController : MonoBehaviour
 {
-    public GlobalAudioController _globalAudioController;
+    private GlobalAudioController _globalAudioController;
 
     [Header("Audio Settings")]
     public Slider musicSlider;    

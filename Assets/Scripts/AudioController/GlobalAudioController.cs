@@ -42,8 +42,12 @@ public class GlobalAudioController : MonoBehaviour
         //Set the last volume save by player
         musicSource.volume = PlayerPrefs.GetFloat("musicVolume");
         sfxSource.volume = PlayerPrefs.GetFloat("sfxVolume");
+                
+    }
 
-        musicSource.clip = allGameMusic[0];
+    public void playGameMusic(int musicIndex)
+    {
+        musicSource.clip = allGameMusic[musicIndex];
         musicSource.Play();
         musicSource.loop = true;
     }
