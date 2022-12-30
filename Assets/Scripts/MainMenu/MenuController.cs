@@ -17,12 +17,7 @@ public class MenuController : MonoBehaviour
     public Text txtPressAnyButton;
 
     [Header("Cooldown")]
-    public float cooldownTitle;
-
-    [Header("Option Sliders")]
-    public Slider[] optionSlider;
-
-
+    public float cooldownTitle;    
 
     void Update()
     {
@@ -64,14 +59,5 @@ public class MenuController : MonoBehaviour
         else
             buttons.SetActive(false);
     }
-
-    public void sfxVolume()
-    {
-
-    }
-
-    public void musicVolume()
-    {
-
-    }
+       
 }
