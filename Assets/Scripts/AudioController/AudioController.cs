@@ -6,57 +6,51 @@ using UnityEngine.UI;
 public class AudioController : MonoBehaviour
 {
     [Header("Audio Settings")]
-    public Slider[] slideVolume;
-    public AudioSource sfxSource;
+    public Slider musicSlider;
     public AudioSource musicSource;
-   
-    
+
+    public Slider sfxSlider;
+    public AudioSource sfxSource;
+
+
     void Start()
-    {
-        print(PlayerPrefs.GetFloat("valor do boot " + "firstBoot"));
-        print(PlayerPrefs.GetFloat("volume musica " + "musicVolume"));
-        print(PlayerPrefs.GetFloat("volume SFX " + "sfxVolume"));
-
-
-        if (PlayerPrefs.GetInt("firstBoot") == 0)
+    {        
+         if(PlayerPrefs.GetInt("firstBoot") == 0)
         {
-            print(PlayerPrefs.GetFloat("volume musica " + "musicVolume"));
-            print(PlayerPrefs.GetFloat("volume SFX " + "sfxVolume"));
-            PlayerPrefs.GetFloat("musicVolume", 0.2f);
-            PlayerPrefs.GetFloat("sfxVolume", 0.3f);
-            PlayerPrefs.GetInt("firstBoot", 1);
+            PlayerPrefs.SetFloat("musicVol", 0.5f);
+            PlayerPrefs.SetFloat("sfxVol", 0.3f);
+            PlayerPrefs.SetInt("firstBoot", 1);
         }
 
-        //Current Volume Variable
-        float mVolume = PlayerPrefs.GetFloat("musicVolume");
-        float sVolume = PlayerPrefs.GetFloat("sfxVolume");
+        float mVolume = PlayerPrefs.GetFloat("musicVol");
+        float sVolume = PlayerPrefs.GetFloat("sfxVol");
 
-        //Audio Sources
+        musicSlider.value = mVolume;
+        musicSource.volume = mVolume;
 
-        sfxSource.volume = mVolume;
-        slideVolume[0].value = mVolume;
-
-        musicSource.volume = sVolume;
-        slideVolume[1].value = sVolume;            
-    }
-        
-    void Update()
-    {
-        
-    }
+        sfxSlider.value = sVolume;
+        sfxSource.volume = sVolume;
+    }        
+  
     public void sfxVolume()
     {
-        sfxSource.volume = slideVolume[0].value;
+        sfxSource.volume = sfxSlider.value;
     }
 
     public void musicVolume()
     {
-        musicSource.volume = slideVolume[1].value;
+        musicSource.volume = musicSlider.value;
     }
     
-    public void ButtonOk()
+    public void buttonConfirm()
     {
-        PlayerPrefs.SetFloat("sfxVolume", slideVolume[0].value);
-        PlayerPrefs.SetFloat("musicVolume", slideVolume[1].value);        
+        PlayerPrefs.SetFloat("musicVol" , musicSlider.value); 
+        PlayerPrefs.SetFloat("sfxVol" , sfxSlider.value);
+    }
+
+    public void buttonCancel()
+    {
+        musicSlider.value = PlayerPrefs.GetFloat("musicVol");
+        sfxSlider.value = PlayerPrefs.GetFloat("sfxVol");
     }
 }

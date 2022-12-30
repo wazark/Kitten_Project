@@ -34,13 +34,14 @@ public class ButtonsFunction : MonoBehaviour
 
     public void confirm()
     {
-        _audioController.ButtonOk();
+        _audioController.buttonConfirm();
         _menuController.showOptions(false);
         _menuController.showButtons(true);
     }
 
     public void cancel()
     {
+        _audioController.buttonCancel();
         _menuController.showOptions(false);
         _menuController.showButtons(true);
     }
