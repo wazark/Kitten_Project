@@ -21,6 +21,7 @@ public class MenuController : MonoBehaviour
 
     [Header("Cooldown")]
     public int musicIndexMainMenu;
+    public bool isMusicWithLoop;
 
     private bool isbuttonPressed;
 
@@ -48,8 +49,7 @@ public class MenuController : MonoBehaviour
     {
         yield return new WaitForSeconds(cdTitle);
         gameTitulo.SetActive(true);
-        _globalAudioController.playGameMusic(musicIndexMainMenu);
-        print("teste");
+        _globalAudioController.playGameMusic(musicIndexMainMenu, isMusicWithLoop);        
     }
 
     public void showOptions(bool isOptionVisible)

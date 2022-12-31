@@ -45,11 +45,11 @@ public class GlobalAudioController : MonoBehaviour
                 
     }
 
-    public void playGameMusic(int musicIndex)
+    public void playGameMusic(int musicIndex, bool musicLoop)
     {
         musicSource.clip = allGameMusic[musicIndex];
         musicSource.Play();
-        musicSource.loop = true;
+        musicSource.loop = musicLoop;
     }
    
 }

@@ -3564,6 +3564,7 @@ MonoBehaviour:
   txtPressAnyButton: {fileID: 848834926}
   cooldownTitle: 1
   musicIndexMainMenu: 4
+  isMusicWithLoop: 1
 --- !u!114 &1878725752
 MonoBehaviour:
   m_ObjectHideFlags: 0
