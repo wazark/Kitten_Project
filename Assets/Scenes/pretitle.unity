@@ -565,6 +565,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e4cfb76f4caa7495e862f8e8cb9f37c9, type: 3}
   - {fileID: 8300000, guid: 1a12ccfe269cf480b9d8c5cc4eb6f438, type: 3}
   - {fileID: 8300000, guid: 4dd88d698970b4edebfcd8939c2adc7d, type: 3}
+  fadeMusicVolume: 0.02
   allGameSounds:
   - {fileID: 8300000, guid: 731eb2b6a24271949bdede27c85db047, type: 3}
   - {fileID: 8300000, guid: cb6d57f8ad7535845936b8b508ca8cd1, type: 3}

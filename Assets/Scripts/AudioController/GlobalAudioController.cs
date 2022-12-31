@@ -12,12 +12,13 @@ public class GlobalAudioController : MonoBehaviour
 
     [Header("Music Clips")]
     public AudioClip[] allGameMusic;
+    public float fadeMusicVolume;
 
     [Header("Sound Effect Clips")]
     public AudioClip[] allGameSounds;
 
     private float currentMusicVolume;
-    private float currentSoundVolume;
+    
 
     void Start()
     {
@@ -50,6 +51,26 @@ public class GlobalAudioController : MonoBehaviour
         musicSource.clip = allGameMusic[musicIndex];
         musicSource.Play();
         musicSource.loop = musicLoop;
+    }
+
+    public IEnumerator changeMusic(AudioClip clip)
+    {
+        currentMusicVolume  = musicSource.volume;
+
+        for(float volM = currentMusicVolume; volM > 0; volM -= fadeMusicVolume)
+        {
+            musicSource.volume = volM;
+            yield return new WaitForEndOfFrame();
+        }
+
+        musicSource.clip = clip;
+        musicSource.Play();
+
+        for( float volM = 0; volM < currentMusicVolume; volM += fadeMusicVolume )
+        {
+            musicSource.volume = volM;
+            yield return new WaitForEndOfFrame();
+        }
     }
    
 }
