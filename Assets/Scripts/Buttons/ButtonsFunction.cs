@@ -10,20 +10,26 @@ public class ButtonsFunction : MonoBehaviour
     private MenuController _menuController;
     private AudioController _audioController;
     private GlobalAudioController _globalAudioController;
+    private FadeTransition _fadeTransition;
 
     [Header("Start Music Game")]
     public int startGameMusic;
+    
+
+    [Header("Scene Index to Start")]
+    public int startSceneIndex;
 
     private void Start()
     {
         _menuController = FindObjectOfType(typeof(MenuController)) as MenuController;
         _audioController = FindObjectOfType(typeof(AudioController)) as AudioController;
         _globalAudioController = FindObjectOfType(typeof(GlobalAudioController)) as GlobalAudioController;
+        _fadeTransition = FindObjectOfType(typeof(FadeTransition)) as FadeTransition;
     }
 
     public void startGame()
     {
-        SceneManager.LoadScene(3);
+        _fadeTransition.StartFade(startSceneIndex);
         _globalAudioController.StartCoroutine("changeMusic", _globalAudioController.allGameMusic[startGameMusic]);
     }
 

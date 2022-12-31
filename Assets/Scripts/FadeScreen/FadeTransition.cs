@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class FadeTransition : MonoBehaviour
 {
     public Animator transitionControllerAnimator;
@@ -15,4 +16,5 @@ public class FadeTransition : MonoBehaviour
     {
         SceneManager.LoadScene(idScene);
     }
+    
 }

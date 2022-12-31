@@ -54,6 +54,7 @@ public class GlobalAudioController : MonoBehaviour
     }
 
     public IEnumerator changeMusic(AudioClip clip)
+
     {
         currentMusicVolume  = musicSource.volume;
 
@@ -65,6 +66,8 @@ public class GlobalAudioController : MonoBehaviour
 
         musicSource.clip = clip;
         musicSource.Play();
+        musicSource.loop = true;
+        ;
 
         for( float volM = 0; volM < currentMusicVolume; volM += fadeMusicVolume )
         {
