@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Ground
+  - WaterSurface
+  - WaterDive
+  - Collectibles
+  - Dagame
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -40,4 +46,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: WaterBackground
+    uniqueID: 2273559843
+    locked: 0
+  - name: Water
+    uniqueID: 2914753205
+    locked: 0
+  - name: Ground
+    uniqueID: 2877296621
+    locked: 0
+  - name: Envirnoment
+    uniqueID: 578333981
     locked: 0
