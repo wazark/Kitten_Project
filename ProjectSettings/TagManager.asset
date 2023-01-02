@@ -59,3 +59,6 @@ TagManager:
   - name: Envirnoment
     uniqueID: 578333981
     locked: 0
+  - name: Shadow
+    uniqueID: 2157517885
+    locked: 0

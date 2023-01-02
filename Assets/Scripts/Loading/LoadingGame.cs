@@ -30,8 +30,6 @@ public class LoadingGame : MonoBehaviour
             isChecked = true;
             _fadeTransition.StartFade(startSceneIndex);
             _globalAudioController.StartCoroutine("changeMusic", _globalAudioController.allGameMusic[startGameMusic]);
-
-            print("mudar de tela");
         }
         
         
