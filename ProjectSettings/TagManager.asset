@@ -50,6 +50,9 @@ TagManager:
   - name: WaterBackground
     uniqueID: 2273559843
     locked: 0
+  - name: Characters
+    uniqueID: 1287634139
+    locked: 0
   - name: Water
     uniqueID: 2914753205
     locked: 0
