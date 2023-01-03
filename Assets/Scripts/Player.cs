@@ -31,10 +31,19 @@ public class Player : MonoBehaviour
        playerAnimator = GetComponent<Animator>();
     }
 
-    
+
     void Update()
     {
         playerMovement();
+
+        updateAnimator();
+        
+        print(playerRB.velocity.y);
+        
+    }
+    private void FixedUpdate()
+    {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.02f, whatIsGround);
     }
 
     void playerMovement()
@@ -60,6 +69,7 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded == true)
         {
             playerRB.AddForce(new Vector2(0, jumpHeight));
+            
         }
     }
 
