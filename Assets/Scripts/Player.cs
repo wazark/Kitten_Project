@@ -7,13 +7,14 @@ public class Player : MonoBehaviour
     private Rigidbody2D playerRB;
     private Animator playerAnimator;
 
-    public Transform groundCheck;
+    public Transform[] groundChecks;
     public LayerMask whatIsGround;
 
     [Header("Player Attributes")]
-    public float movementSpeed;
+    public float speedMove;
     //public float buffSpeed;
     public float jumpHeight;
+    public float attackSpeed;
     /*public float maxAmountJump;
     public float currentHealth;
     public float maxHealth;
@@ -21,8 +22,16 @@ public class Player : MonoBehaviour
     public float baseDamage;
     public float maxDamage;
      */
+    [Header("Player Animations")]
+    public float delayToChangeIdleState;
+    public float idleReturnToDefaul; 
+
+
+    private bool isIdleAnimChanged;
     private bool isLookLeft;
     private bool isGrounded;
+    private bool isIdle;
+    private bool isAttacking;   
     private float directionMovement;
 
     void Start()
@@ -37,13 +46,14 @@ public class Player : MonoBehaviour
         playerMovement();
 
         updateAnimator();
-        
-        print(playerRB.velocity.y);
-        
+
+        playerAttacks();
+
+        StartCoroutine(changeIdleAnimation());
     }
     private void FixedUpdate()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.02f, whatIsGround);
+        isGrounded = Physics2D.OverlapArea(groundChecks[0].position, groundChecks[1].position, whatIsGround);
     }
 
     void playerMovement()
@@ -53,26 +63,49 @@ public class Player : MonoBehaviour
         if(directionMovement < 0 && isLookLeft == false) 
         {
             flipCharacter();
+            isIdle= false;            
         }
         else if(directionMovement > 0 && isLookLeft == true) 
         {
             flipCharacter();
+            isIdle = false;           
+        }
+        else if( directionMovement == 0 )
+        {
+            isIdle = true;
         }
 
         playerJump();
 
-        playerRB.velocity = new Vector2 ( directionMovement * movementSpeed, playerRB.velocity.y );
+        playerRB.velocity = new Vector2 ( directionMovement * speedMove, playerRB.velocity.y );
     }
     
     void playerJump()
     {
         if (Input.GetButtonDown("Jump") && isGrounded == true)
         {
-            playerRB.AddForce(new Vector2(0, jumpHeight));
-            
+            playerRB.AddForce(new Vector2(0, jumpHeight));            
         }
     }
-
+    void playerAttacks()
+    {
+        if(Input.GetButtonDown("Fire1") && isAttacking == false)
+        {
+            playerAnimator.SetTrigger("isAttackA");
+            isAttacking= true;
+        }
+        else if( Input.GetButtonDown("Fire2") && isAttacking == false)
+        {
+            playerAnimator.SetTrigger("isAttackB");
+            isAttacking = true;
+        }
+    }
+    void onAttackComplete()
+    {
+        StartCoroutine(activeAttack());
+        StartCoroutine(returnDefaultIdleAnimation());
+    }
+        
     void updateAnimator()
     {
         playerAnimator.SetInteger("direction", (int)directionMovement);
@@ -86,6 +119,32 @@ public class Player : MonoBehaviour
         float x = transform.localScale.x;
         x *= -1;
         transform.localScale = new Vector3(x, transform.localScale.y, transform.localScale.z);
+    }
+    IEnumerator activeAttack()
+    {
+        yield return new WaitForSecondsRealtime(attackSpeed);
+        isAttacking = false;
+    }
+        
+    IEnumerator changeIdleAnimation()
+    {        
+        if(isIdle == true && isIdleAnimChanged == false && isAttacking == false)
+        {
+            isIdleAnimChanged = true;
+            yield return new WaitForSecondsRealtime(delayToChangeIdleState);            
+            playerAnimator.SetBool("ChangeIdleAnim", true);            
+        }
+        else if( isIdle == false || isAttacking == true)
+        {
+            StartCoroutine(returnDefaultIdleAnimation());
+        }
+    }
+
+    IEnumerator returnDefaultIdleAnimation()
+    {
+        playerAnimator.SetBool("ChangeIdleAnim", false);
+        yield return new WaitForSecondsRealtime(idleReturnToDefaul);
+        isIdleAnimChanged = false;
     }
 
 }
