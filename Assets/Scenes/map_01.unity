@@ -30178,6 +30178,7 @@ MonoBehaviour:
     m_Bits: 8
   speedMove: 4
   jumpHeight: 350
+  attackSpeed: 0.5
   delayToChangeIdleState: 5
   idleReturnToDefaul: 20
 --- !u!70 &2095019372

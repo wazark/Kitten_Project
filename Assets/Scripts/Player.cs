@@ -24,8 +24,15 @@ public class Player : MonoBehaviour
      */
     [Header("Player Animations")]
     public float delayToChangeIdleState;
-    public float idleReturnToDefaul; 
+    public float idleReturnToDefaul;
 
+    [Header("Player Shoot Ball")]
+    public GameObject prefabBall;
+    public Transform spawnBallLocation;
+    public float speedBall;
+
+    [Header("Colliders")]
+    public Collider2D hammerHit;
 
     private bool isIdleAnimChanged;
     private bool isLookLeft;
@@ -36,6 +43,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+       hammerHit.enabled = false;
        playerRB = GetComponent<Rigidbody2D>();
        playerAnimator = GetComponent<Animator>();
     }
@@ -105,6 +113,13 @@ public class Player : MonoBehaviour
         StartCoroutine(activeAttack());
         StartCoroutine(returnDefaultIdleAnimation());
     }
+
+    public void shootBall()
+    {
+        GameObject temp = Instantiate(prefabBall, spawnBallLocation.position, transform.localRotation);        
+        temp.GetComponent<Rigidbody2D>().velocity = new Vector2(speedBall, 0);
+           
+    }
         
     void updateAnimator()
     {
@@ -118,6 +133,7 @@ public class Player : MonoBehaviour
         isLookLeft = !isLookLeft;
         float x = transform.localScale.x;
         x *= -1;
+        speedBall *= -1;
         transform.localScale = new Vector3(x, transform.localScale.y, transform.localScale.z);
     }
     IEnumerator activeAttack()
