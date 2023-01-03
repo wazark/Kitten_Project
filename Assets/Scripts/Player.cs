@@ -14,9 +14,9 @@ public class Player : MonoBehaviour
     public float speedMove;
     //public float buffSpeed;
     public float jumpHeight;
-    public float attackSpeed;
-    /*public float maxAmountJump;
-    public float currentHealth;
+    public float gravityFlying;
+    public float attackSpeed;    
+    /*public float currentHealth;
     public float maxHealth;
     public float currentDamage;
     public float baseDamage;
@@ -38,14 +38,18 @@ public class Player : MonoBehaviour
     private bool isLookLeft;
     private bool isGrounded;
     private bool isIdle;
-    private bool isAttacking;   
+    private bool isAttacking;
+    private bool isFlying;
     private float directionMovement;
+    private float gravityBase;
+    
 
     void Start()
     {
        hammerHit.enabled = false;
        playerRB = GetComponent<Rigidbody2D>();
        playerAnimator = GetComponent<Animator>();
+        gravityBase = playerRB.gravityScale;
     }
 
 
@@ -62,6 +66,11 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapArea(groundChecks[0].position, groundChecks[1].position, whatIsGround);
+        if(isGrounded == true && isFlying== true)
+        {
+            isFlying = false;
+            playerRB.gravityScale = gravityBase;
+        }
     }
 
     void playerMovement()
@@ -94,15 +103,26 @@ public class Player : MonoBehaviour
         {
             playerRB.AddForce(new Vector2(0, jumpHeight));            
         }
+
+        if( Input.GetButtonDown("Jump") && isGrounded == false && isFlying== false)
+        {
+            isFlying = true;
+            playerRB.gravityScale = gravityFlying;
+        }
+        if (Input.GetButtonUp("Jump"))
+        {
+            isFlying = false;
+            playerRB.gravityScale = gravityBase;
+        }
     }
     void playerAttacks()
     {
-        if(Input.GetButtonDown("Fire1") && isAttacking == false)
+        if(Input.GetButtonDown("Fire1") && isAttacking == false && isGrounded == true)
         {
             playerAnimator.SetTrigger("isAttackA");
             isAttacking= true;
         }
-        else if( Input.GetButtonDown("Fire2") && isAttacking == false)
+        else if( Input.GetButtonDown("Fire2") && isAttacking == false && isGrounded == true)
         {
             playerAnimator.SetTrigger("isAttackB");
             isAttacking = true;
@@ -117,8 +137,7 @@ public class Player : MonoBehaviour
     public void shootBall()
     {
         GameObject temp = Instantiate(prefabBall, spawnBallLocation.position, transform.localRotation);        
-        temp.GetComponent<Rigidbody2D>().velocity = new Vector2(speedBall, 0);
-           
+        temp.GetComponent<Rigidbody2D>().velocity = new Vector2(speedBall, 0);           
     }
         
     void updateAnimator()
@@ -126,6 +145,7 @@ public class Player : MonoBehaviour
         playerAnimator.SetInteger("direction", (int)directionMovement);
         playerAnimator.SetBool("isGrounded", isGrounded);
         playerAnimator.SetFloat("vectical", playerRB.velocity.y);
+        playerAnimator.SetBool("isFlying", isFlying);
     }
 
     void flipCharacter()
