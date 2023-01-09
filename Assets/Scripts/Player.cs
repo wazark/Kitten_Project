@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     public float baseDamage;
     public float maxDamage;
      */
+
     [Header("Player Animations")]
     public float delayToChangeIdleState;
     public float idleReturnToDefaul;
@@ -38,15 +39,14 @@ public class Player : MonoBehaviour
     public Collider2D colliderFlying;
     //public Collider2D colliderswimming;
 
-    private bool isIdleAnimChanged;
+    private bool canChangeIdleAnimation;
+    private bool isMoving;
     private bool isLookLeft;
-    private bool isGrounded;
-    private bool isIdle;
+    private bool isGrounded;    
     private bool isAttacking;
     private bool isFlying;
     private float directionMovement;
     private float gravityBase;
-    
 
     void Start()
     {
@@ -64,16 +64,14 @@ public class Player : MonoBehaviour
     }
 
     void Update()
-    {
+    {        
         playerMovement();
-
+        updateColliders();
+                
         updateAnimator();
-
         playerAttacks();
 
         StartCoroutine(changeIdleAnimation());
-
-        updateColliders();
     }
 
     private void FixedUpdate()
@@ -107,16 +105,16 @@ public class Player : MonoBehaviour
         if(directionMovement < 0 && isLookLeft == false) 
         {
             flipCharacter();
-            isIdle= false;            
+            isMoving = true;
         }
         else if(directionMovement > 0 && isLookLeft == true) 
         {
             flipCharacter();
-            isIdle = false;           
+            isMoving = true;
         }
-        else if( directionMovement == 0 )
+        if(directionMovement== 0)
         {
-            isIdle = true;
+            isMoving= false;
         }
 
         playerJump();
@@ -128,7 +126,8 @@ public class Player : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump") && isGrounded == true)
         {
-            playerRB.AddForce(new Vector2(0, jumpHeight));            
+            playerRB.AddForce(new Vector2(0, jumpHeight));
+            isMoving= true;
         }
 
         if( Input.GetButtonDown("Jump") && isGrounded == false && isFlying== false && isAttacking == false)
@@ -151,6 +150,7 @@ public class Player : MonoBehaviour
             playerAnimator.SetTrigger("isAttackA");
             isAttacking= true;
             isFlying = false;
+            isMoving = true;
             playerRB.gravityScale = gravityBase;
         }
         else if( Input.GetButtonDown("Fire2") && isAttacking == false )
@@ -158,14 +158,14 @@ public class Player : MonoBehaviour
             playerAnimator.SetTrigger("isAttackB");
             isAttacking = true;
             isFlying = false;
+            isMoving = true;
             playerRB.gravityScale = gravityBase;
         }
     }
 
     void onAttackComplete()
     {
-        StartCoroutine(activeAttack());
-        StartCoroutine(returnDefaultIdleAnimation());
+        StartCoroutine(activeAttack());        
     }
 
     public void shootBall()
@@ -181,6 +181,7 @@ public class Player : MonoBehaviour
         playerAnimator.SetFloat("vectical", playerRB.velocity.y);
         playerAnimator.SetBool("isFlying", isFlying);
         playerAnimator.SetBool("isAttacking", isAttacking);
+        playerAnimator.SetBool("ChangeIdleAnim", canChangeIdleAnimation);
     }
 
     void flipCharacter()
@@ -191,31 +192,29 @@ public class Player : MonoBehaviour
         speedBall *= -1;
         transform.localScale = new Vector3(x, transform.localScale.y, transform.localScale.z);
     }
+
     IEnumerator activeAttack()
     {
         yield return new WaitForSecondsRealtime(attackSpeed);
         isAttacking = false;
     }
-        
+    
     IEnumerator changeIdleAnimation()
-    {        
-        if(isIdle == true && isIdleAnimChanged == false && isAttacking == false)
-        {
-            isIdleAnimChanged = true;
-            yield return new WaitForSecondsRealtime(delayToChangeIdleState);            
-            playerAnimator.SetBool("ChangeIdleAnim", true);            
-        }
-        else if( isIdle == false || isAttacking == true)
-        {
-            StartCoroutine(returnDefaultIdleAnimation());
-        }
-    }
-
-    IEnumerator returnDefaultIdleAnimation()
     {
-        playerAnimator.SetBool("ChangeIdleAnim", false);
-        yield return new WaitForSecondsRealtime(idleReturnToDefaul);
-        isIdleAnimChanged = false;
+        if(isMoving == false && isAttacking == false && isGrounded == true && canChangeIdleAnimation == false) 
+        {
+            yield return new WaitForSeconds(delayToChangeIdleState);
+            canChangeIdleAnimation = true;
+            print("fazer nova animacao");
+        }
+        else if( isMoving == true || isAttacking == true || isGrounded == false)
+        {
+            returnDefaulIdleAnimation();
+        }
     }
-        
+    void returnDefaulIdleAnimation()
+    {
+        canChangeIdleAnimation = false;
+        print("voltar a animacao normal");
+    }
 }

@@ -30273,11 +30273,11 @@ MonoBehaviour:
   gravityFlying: 0.3
   addHeightFlight: 0
   attackSpeed: 0.5
-  delayToChangeIdleState: 20
-  idleReturnToDefaul: 20
+  delayToChangeIdleState: 10
+  idleReturnToDefaul: 10
   prefabBall: {fileID: 7658906638848500372, guid: df0d519be3c32874aaacedbb5635a68c, type: 3}
   spawnBallLocation: {fileID: 1003443517}
-  speedBall: 4
+  speedBall: 6
   hammerHit: {fileID: 121605251}
   colliderDefault: {fileID: 2095019372}
   colliderFlying: {fileID: 2095019373}
