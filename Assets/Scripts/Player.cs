@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     //public float buffSpeed;
     public float jumpHeight;
     public float gravityFlying;
+    public float addHeightFlight;
     public float attackSpeed;    
     /*public float currentHealth;
     public float maxHealth;
@@ -33,6 +34,9 @@ public class Player : MonoBehaviour
 
     [Header("Colliders")]
     public Collider2D hammerHit;
+    public Collider2D colliderDefault;
+    public Collider2D colliderFlying;
+    //public Collider2D colliderswimming;
 
     private bool isIdleAnimChanged;
     private bool isLookLeft;
@@ -46,12 +50,18 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+     //Colliders
        hammerHit.enabled = false;
+       colliderDefault.enabled = true;
+       colliderFlying.enabled = false;
+
+     // Get Components
        playerRB = GetComponent<Rigidbody2D>();
        playerAnimator = GetComponent<Animator>();
-        gravityBase = playerRB.gravityScale;
-    }
 
+     //Gravity
+       gravityBase = playerRB.gravityScale;
+    }
 
     void Update()
     {
@@ -62,7 +72,10 @@ public class Player : MonoBehaviour
         playerAttacks();
 
         StartCoroutine(changeIdleAnimation());
+
+        updateColliders();
     }
+
     private void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapArea(groundChecks[0].position, groundChecks[1].position, whatIsGround);
@@ -70,6 +83,20 @@ public class Player : MonoBehaviour
         {
             isFlying = false;
             playerRB.gravityScale = gravityBase;
+        }
+    }
+
+    void updateColliders()
+    {
+     if( isFlying== true && colliderFlying.enabled== false ) 
+        {
+            colliderDefault.enabled = false;
+            colliderFlying.enabled = true;
+        }
+     else if( isFlying == false && colliderDefault.enabled== false ) 
+        {
+            colliderDefault.enabled = true;
+            colliderFlying.enabled = false;
         }
     }
 
@@ -104,30 +131,37 @@ public class Player : MonoBehaviour
             playerRB.AddForce(new Vector2(0, jumpHeight));            
         }
 
-        if( Input.GetButtonDown("Jump") && isGrounded == false && isFlying== false)
+        if( Input.GetButtonDown("Jump") && isGrounded == false && isFlying== false && isAttacking == false)
         {
-            isFlying = true;
+            isFlying = true;            
+            playerRB.velocity = new Vector2(playerRB.velocity.x, addHeightFlight);
             playerRB.gravityScale = gravityFlying;
         }
         if (Input.GetButtonUp("Jump"))
         {
+            isFlying = false;            
+            playerRB.gravityScale = gravityBase;
+        }
+    }
+
+    void playerAttacks()
+    {
+        if(Input.GetButtonDown("Fire1") && isAttacking == false )
+        {
+            playerAnimator.SetTrigger("isAttackA");
+            isAttacking= true;
+            isFlying = false;
+            playerRB.gravityScale = gravityBase;
+        }
+        else if( Input.GetButtonDown("Fire2") && isAttacking == false )
+        {
+            playerAnimator.SetTrigger("isAttackB");
+            isAttacking = true;
             isFlying = false;
             playerRB.gravityScale = gravityBase;
         }
     }
-    void playerAttacks()
-    {
-        if(Input.GetButtonDown("Fire1") && isAttacking == false && isGrounded == true)
-        {
-            playerAnimator.SetTrigger("isAttackA");
-            isAttacking= true;
-        }
-        else if( Input.GetButtonDown("Fire2") && isAttacking == false && isGrounded == true)
-        {
-            playerAnimator.SetTrigger("isAttackB");
-            isAttacking = true;
-        }
-    }
+
     void onAttackComplete()
     {
         StartCoroutine(activeAttack());
@@ -146,6 +180,7 @@ public class Player : MonoBehaviour
         playerAnimator.SetBool("isGrounded", isGrounded);
         playerAnimator.SetFloat("vectical", playerRB.velocity.y);
         playerAnimator.SetBool("isFlying", isFlying);
+        playerAnimator.SetBool("isAttacking", isAttacking);
     }
 
     void flipCharacter()
@@ -182,5 +217,5 @@ public class Player : MonoBehaviour
         yield return new WaitForSecondsRealtime(idleReturnToDefaul);
         isIdleAnimChanged = false;
     }
-
+        
 }

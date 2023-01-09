@@ -30127,6 +30127,7 @@ GameObject:
   - component: {fileID: 2095019367}
   - component: {fileID: 2095019369}
   - component: {fileID: 2095019372}
+  - component: {fileID: 2095019373}
   - component: {fileID: 2095019370}
   - component: {fileID: 2095019371}
   m_Layer: 0
@@ -30227,7 +30228,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!95 &2095019370
 Animator:
@@ -30270,6 +30271,7 @@ MonoBehaviour:
   speedMove: 4
   jumpHeight: 350
   gravityFlying: 0.3
+  addHeightFlight: 0
   attackSpeed: 0.5
   delayToChangeIdleState: 20
   idleReturnToDefaul: 20
@@ -30277,6 +30279,8 @@ MonoBehaviour:
   spawnBallLocation: {fileID: 1003443517}
   speedBall: 4
   hammerHit: {fileID: 121605251}
+  colliderDefault: {fileID: 2095019372}
+  colliderFlying: {fileID: 2095019373}
 --- !u!70 &2095019372
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -30293,6 +30297,22 @@ CapsuleCollider2D:
   m_Offset: {x: -0.12241745, y: 0.010501087}
   m_Size: {x: 0.46549606, y: 0.95203936}
   m_Direction: 0
+--- !u!70 &2095019373
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095019365}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.15403025, y: 0.21107683}
+  m_Size: {x: 1.0358989, y: 0.76779157}
+  m_Direction: 1
 --- !u!1 &2099068534
 GameObject:
   m_ObjectHideFlags: 0
