@@ -12,9 +12,11 @@ public class Player : MonoBehaviour
 
     [Header("Player Attributes")]
     public float speedMove;
+    public float speedSwimming;
     //public float buffSpeed;
     public float jumpHeight;    
     public float addHeightFlight;
+    public float swimmingImpulse;
     public float attackSpeed;
     /*public float currentHealth;
     public float maxHealth;
@@ -41,7 +43,8 @@ public class Player : MonoBehaviour
     private bool isGrounded;    
     private bool isAttacking;
     private bool isFlying;
-    private bool isSwimming;    
+    private bool isSwimming;
+    private bool isWaterSurface;    
     private float directionMovement;
     private float gravityBase;
 
@@ -77,17 +80,41 @@ public class Player : MonoBehaviour
             playerRB.gravityScale = gravityBase;
         }
     }
+
     void OnTriggerEnter2D(Collider2D col) 
     {
         switch(col.gameObject.tag)
         {
             case "WaterDive":
-
             isSwimming = true;
+            playerRB.velocity = new Vector2 (0,0);
+            playerRB.gravityScale = gravitySwimming;
+            print("dentro da tag waterdive");            
+            break;
 
+            case "WaterSurface":
+            print("dentro da tag watersurface");            
+            isWaterSurface = true;            
             break;
         }
 
+    }
+
+    private void OnTriggerExit2D(Collider2D col) 
+    {
+        switch(col.gameObject.tag)
+        {
+            case "WaterDive":
+            //print("saiu da tag waterdive");   
+            isSwimming = false;
+            playerRB.gravityScale = gravityBase;
+            break;
+
+            case "WaterSurface":
+            print("saiu da tag watersurface");   
+            isWaterSurface = false;            
+            break;
+        }
     }
 
     void checkPlayerController()
@@ -97,7 +124,12 @@ public class Player : MonoBehaviour
         playerMovement();        
         playerAttacks();
         }
+        else if (isSwimming == true)
+        {
+          playerMovementSwimming();
+        }
     }
+
     void updateColliders()
     {
      if(isSwimming == true && colliderSwimming == false)
@@ -112,7 +144,7 @@ public class Player : MonoBehaviour
             colliderDefault.enabled = false;
             colliderSwimming.enabled = false;
         }
-     else if( isFlying == false && colliderDefault.enabled == false ) 
+     else if( isFlying == false && isSwimming == false && colliderDefault.enabled == false ) 
         {
             colliderDefault.enabled = true;
             colliderFlying.enabled = false;
@@ -156,6 +188,37 @@ public class Player : MonoBehaviour
         {
             isFlying = false;            
             playerRB.gravityScale = gravityBase;
+        }
+    }
+
+    void playerMovementSwimming()
+    {
+        directionMovement = Input.GetAxisRaw("Horizontal");
+        
+        if(directionMovement < 0 && isLookLeft == false) 
+        {
+            flipCharacter();            
+        }
+        else if(directionMovement > 0 && isLookLeft == true) 
+        {
+            flipCharacter();          
+        }
+
+        playerJumpOnWater();
+
+        playerRB.velocity = new Vector2 ( directionMovement * speedSwimming, playerRB.velocity.y );
+    }
+    void playerJumpOnWater()
+    {
+        if(Input.GetButtonDown("Jump") && isWaterSurface == false)
+        {
+            playerRB.AddForce(new Vector2(0,swimmingImpulse));
+            //print("pulo no fundo");
+        }
+        else if(Input.GetButtonDown("Jump") && isWaterSurface == true)
+        {
+           playerRB.AddForce(new Vector2(0, jumpHeight)); 
+           print("pulo na superficie");
         }
     }
 
