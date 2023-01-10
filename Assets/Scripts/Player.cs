@@ -132,13 +132,13 @@ public class Player : MonoBehaviour
 
     void updateColliders()
     {
-     if(isSwimming == true && colliderSwimming == false)
+     if(isSwimming == true && colliderSwimming.enabled == false)
         {
             colliderSwimming.enabled = true;
             colliderDefault.enabled = false;
             colliderFlying.enabled = false;
          }     
-     else if( isFlying== true && colliderFlying.enabled == false ) 
+     else if( isFlying == true && colliderFlying.enabled == false ) 
         {
             colliderFlying.enabled = true;
             colliderDefault.enabled = false;
