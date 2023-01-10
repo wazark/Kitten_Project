@@ -1417,9 +1417,10 @@ GameObject:
   - component: {fileID: 105271878}
   - component: {fileID: 105271880}
   - component: {fileID: 105271879}
+  - component: {fileID: 105271881}
   m_Layer: 4
   m_Name: Water
-  m_TagString: Untagged
+  m_TagString: WaterDive
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1885,6 +1886,32 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!61 &105271881
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105271877}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -16.521915, y: -1.6901393}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 9.543131, y: 2.573627}
+  m_EdgeRadius: 0
 --- !u!1 &112010437
 GameObject:
   m_ObjectHideFlags: 0
@@ -7097,7 +7124,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &496371870
 Transform:
   m_ObjectHideFlags: 0
@@ -30128,6 +30155,7 @@ GameObject:
   - component: {fileID: 2095019369}
   - component: {fileID: 2095019372}
   - component: {fileID: 2095019373}
+  - component: {fileID: 2095019374}
   - component: {fileID: 2095019370}
   - component: {fileID: 2095019371}
   m_Layer: 0
@@ -30271,16 +30299,16 @@ MonoBehaviour:
   speedMove: 4
   jumpHeight: 350
   gravityFlying: 0.3
-  addHeightFlight: 0
+  gravitySwimming: 0.2
+  addHeightFlight: 0.2
   attackSpeed: 0.5
-  delayToChangeIdleState: 10
-  idleReturnToDefaul: 10
   prefabBall: {fileID: 7658906638848500372, guid: df0d519be3c32874aaacedbb5635a68c, type: 3}
   spawnBallLocation: {fileID: 1003443517}
   speedBall: 6
   hammerHit: {fileID: 121605251}
   colliderDefault: {fileID: 2095019372}
   colliderFlying: {fileID: 2095019373}
+  colliderSwimming: {fileID: 2095019374}
 --- !u!70 &2095019372
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -30312,6 +30340,22 @@ CapsuleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.15403025, y: 0.21107683}
   m_Size: {x: 1.0358989, y: 0.76779157}
+  m_Direction: 1
+--- !u!70 &2095019374
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095019365}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.08075679, y: -0.017667424}
+  m_Size: {x: 1.04107, y: 0.86443746}
   m_Direction: 1
 --- !u!1 &2099068534
 GameObject:

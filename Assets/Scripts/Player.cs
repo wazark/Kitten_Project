@@ -13,21 +13,19 @@ public class Player : MonoBehaviour
     [Header("Player Attributes")]
     public float speedMove;
     //public float buffSpeed;
-    public float jumpHeight;
-    public float gravityFlying;
+    public float jumpHeight;    
     public float addHeightFlight;
-    public float attackSpeed;    
+    public float attackSpeed;
     /*public float currentHealth;
     public float maxHealth;
     public float currentDamage;
     public float baseDamage;
     public float maxDamage;
      */
-
-    [Header("Player Animations")]
-    public float delayToChangeIdleState;
-    public float idleReturnToDefaul;
-
+    [Header("Gravity Settings")]
+    public float gravityFlying;
+    public float gravitySwimming;
+    
     [Header("Player Shoot Ball")]
     public GameObject prefabBall;
     public Transform spawnBallLocation;
@@ -37,14 +35,13 @@ public class Player : MonoBehaviour
     public Collider2D hammerHit;
     public Collider2D colliderDefault;
     public Collider2D colliderFlying;
-    //public Collider2D colliderswimming;
+    public Collider2D colliderSwimming;
 
-    private bool canChangeIdleAnimation;
-    private bool isMoving;
     private bool isLookLeft;
     private bool isGrounded;    
     private bool isAttacking;
     private bool isFlying;
+    private bool isSwimming;    
     private float directionMovement;
     private float gravityBase;
 
@@ -54,6 +51,7 @@ public class Player : MonoBehaviour
        hammerHit.enabled = false;
        colliderDefault.enabled = true;
        colliderFlying.enabled = false;
+       colliderSwimming.enabled = false;
 
      // Get Components
        playerRB = GetComponent<Rigidbody2D>();
@@ -65,13 +63,9 @@ public class Player : MonoBehaviour
 
     void Update()
     {        
-        playerMovement();
-        updateColliders();
-                
+        checkPlayerController();
         updateAnimator();
-        playerAttacks();
-
-        StartCoroutine(changeIdleAnimation());
+        updateColliders();
     }
 
     private void FixedUpdate()
@@ -83,18 +77,46 @@ public class Player : MonoBehaviour
             playerRB.gravityScale = gravityBase;
         }
     }
+    void OnTriggerEnter2D(Collider2D col) 
+    {
+        switch(col.gameObject.tag)
+        {
+            case "WaterDive":
 
+            isSwimming = true;
+
+            break;
+        }
+
+    }
+
+    void checkPlayerController()
+    {
+        if(isSwimming == false)
+        {
+        playerMovement();        
+        playerAttacks();
+        }
+    }
     void updateColliders()
     {
-     if( isFlying== true && colliderFlying.enabled== false ) 
+     if(isSwimming == true && colliderSwimming == false)
         {
+            colliderSwimming.enabled = true;
             colliderDefault.enabled = false;
+            colliderFlying.enabled = false;
+         }     
+     else if( isFlying== true && colliderFlying.enabled == false ) 
+        {
             colliderFlying.enabled = true;
+            colliderDefault.enabled = false;
+            colliderSwimming.enabled = false;
         }
-     else if( isFlying == false && colliderDefault.enabled== false ) 
+     else if( isFlying == false && colliderDefault.enabled == false ) 
         {
             colliderDefault.enabled = true;
             colliderFlying.enabled = false;
+            colliderSwimming.enabled = false;
         }
     }
 
@@ -104,18 +126,12 @@ public class Player : MonoBehaviour
         
         if(directionMovement < 0 && isLookLeft == false) 
         {
-            flipCharacter();
-            isMoving = true;
+            flipCharacter();            
         }
         else if(directionMovement > 0 && isLookLeft == true) 
         {
-            flipCharacter();
-            isMoving = true;
-        }
-        if(directionMovement== 0)
-        {
-            isMoving= false;
-        }
+            flipCharacter();          
+        }        
 
         playerJump();
 
@@ -127,7 +143,7 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded == true)
         {
             playerRB.AddForce(new Vector2(0, jumpHeight));
-            isMoving= true;
+            
         }
 
         if( Input.GetButtonDown("Jump") && isGrounded == false && isFlying== false && isAttacking == false)
@@ -149,16 +165,14 @@ public class Player : MonoBehaviour
         {
             playerAnimator.SetTrigger("isAttackA");
             isAttacking= true;
-            isFlying = false;
-            isMoving = true;
+            isFlying = false;            
             playerRB.gravityScale = gravityBase;
         }
         else if( Input.GetButtonDown("Fire2") && isAttacking == false )
         {
             playerAnimator.SetTrigger("isAttackB");
             isAttacking = true;
-            isFlying = false;
-            isMoving = true;
+            isFlying = false;            
             playerRB.gravityScale = gravityBase;
         }
     }
@@ -181,7 +195,7 @@ public class Player : MonoBehaviour
         playerAnimator.SetFloat("vectical", playerRB.velocity.y);
         playerAnimator.SetBool("isFlying", isFlying);
         playerAnimator.SetBool("isAttacking", isAttacking);
-        playerAnimator.SetBool("ChangeIdleAnim", canChangeIdleAnimation);
+        playerAnimator.SetBool("isSwimming",isSwimming);      
     }
 
     void flipCharacter()
@@ -198,23 +212,5 @@ public class Player : MonoBehaviour
         yield return new WaitForSecondsRealtime(attackSpeed);
         isAttacking = false;
     }
-    
-    IEnumerator changeIdleAnimation()
-    {
-        if(isMoving == false && isAttacking == false && isGrounded == true && canChangeIdleAnimation == false) 
-        {
-            yield return new WaitForSeconds(delayToChangeIdleState);
-            canChangeIdleAnimation = true;
-            print("fazer nova animacao");
-        }
-        else if( isMoving == true || isAttacking == true || isGrounded == false)
-        {
-            returnDefaulIdleAnimation();
-        }
-    }
-    void returnDefaulIdleAnimation()
-    {
-        canChangeIdleAnimation = false;
-        print("voltar a animacao normal");
-    }
+
 }
