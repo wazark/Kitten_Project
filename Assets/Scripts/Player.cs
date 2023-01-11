@@ -84,18 +84,14 @@ public class Player : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col) 
     {
         switch(col.gameObject.tag)
-        {
-            case "WaterDive":
+        {            
+            case "Water":
             isSwimming = true;
             playerRB.velocity = new Vector2 (0,0);
             playerRB.gravityScale = gravitySwimming;
-            print("dentro da tag waterdive");            
+            print("mudar animação para nadando");
             break;
-
-            case "WaterSurface":
-            print("dentro da tag watersurface");            
-            isWaterSurface = true;            
-            break;
+            
         }
 
     }
@@ -104,16 +100,10 @@ public class Player : MonoBehaviour
     {
         switch(col.gameObject.tag)
         {
-            case "WaterDive":
-            //print("saiu da tag waterdive");   
+            case "Water":           
             isSwimming = false;
             playerRB.gravityScale = gravityBase;
-            break;
-
-            case "WaterSurface":
-            print("saiu da tag watersurface");   
-            isWaterSurface = false;            
-            break;
+            break;            
         }
     }
 

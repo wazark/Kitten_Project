@@ -5,8 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
-  - WaterSurface
-  - WaterDive
   - Collectibles
   - Dagame
   - Enemy
