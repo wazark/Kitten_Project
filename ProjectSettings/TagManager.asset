@@ -8,6 +8,9 @@ TagManager:
   - Collectibles
   - Dagame
   - Enemy
+  - Water
+  - WaterSurface
+  - UnderWater
   layers:
   - Default
   - TransparentFX

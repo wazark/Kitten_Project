@@ -39,6 +39,13 @@ public class Player : MonoBehaviour
     public Collider2D colliderFlying;
     public Collider2D colliderSwimming;
 
+    [Header("Camera Settings")]
+    public Camera mainCamera;
+    public Transform leftCameraLimit;
+    public Transform rightCameraLimit;    
+    public float cameraSpeedMove;
+    
+
     private bool isLookLeft;
     private bool isGrounded;    
     private bool isAttacking;
@@ -69,6 +76,7 @@ public class Player : MonoBehaviour
         checkPlayerController();
         updateAnimator();
         updateColliders();
+        cameraPositionControll();
     }
 
     private void FixedUpdate()
@@ -81,31 +89,32 @@ public class Player : MonoBehaviour
         }
     }
 
+    
+    
     void OnTriggerEnter2D(Collider2D col) 
     {
         switch(col.gameObject.tag)
         {            
             case "Water":
             isSwimming = true;
-            playerRB.velocity = new Vector2 (0,0);
+            //playerRB.velocity = new Vector2 (0,0);
             playerRB.gravityScale = gravitySwimming;
             print("mudar animação para nadando");
-            break;
-            
-        }
-
-    }
-
-    private void OnTriggerExit2D(Collider2D col) 
-    {
-        switch(col.gameObject.tag)
-        {
-            case "Water":           
-            isSwimming = false;
-            playerRB.gravityScale = gravityBase;
             break;            
         }
+
     }
+    void OnTriggerExit2D(Collider2D coll) 
+    {
+       switch(coll.gameObject.tag)
+       {
+        case "Water":
+        isSwimming = false;
+        playerRB.gravityScale = gravityBase;
+        break;
+       } 
+    }
+    
 
     void checkPlayerController()
     {
@@ -122,25 +131,49 @@ public class Player : MonoBehaviour
 
     void updateColliders()
     {
-     if(isSwimming == true && colliderSwimming.enabled == false)
+    if( isFlying == false && isSwimming == false && colliderDefault.enabled == false ) 
         {
-            colliderSwimming.enabled = true;
-            colliderDefault.enabled = false;
+            colliderDefault.enabled = true;
             colliderFlying.enabled = false;
-         }     
-     else if( isFlying == true && colliderFlying.enabled == false ) 
+            colliderSwimming.enabled = false;
+        }     
+    else if( isFlying == true && colliderFlying.enabled == false ) 
         {
             colliderFlying.enabled = true;
             colliderDefault.enabled = false;
             colliderSwimming.enabled = false;
         }
-     else if( isFlying == false && isSwimming == false && colliderDefault.enabled == false ) 
+    else if(isSwimming == true && colliderSwimming.enabled == false)
         {
-            colliderDefault.enabled = true;
+            colliderSwimming.enabled = true;
+            colliderDefault.enabled = false;
             colliderFlying.enabled = false;
-            colliderSwimming.enabled = false;
+        }     
+     
+    }
+
+    void cameraPositionControll()
+    {
+        if (mainCamera.transform.position.x > leftCameraLimit.position.x && mainCamera.transform.position.x < rightCameraLimit.position.x)
+        {
+            moveCamera();
+        }
+        else if (mainCamera.transform.position.x <= leftCameraLimit.position.x && transform.position.x > leftCameraLimit.position.x)
+        {
+            moveCamera();
+        }
+        else if (mainCamera.transform.position.x >= rightCameraLimit.position.x && transform.position.x < rightCameraLimit.position.x)
+        {
+            moveCamera();
         }
     }
+
+    void moveCamera()
+    {
+        Vector3 newCameraPosition = new Vector3(this.transform.position.x, mainCamera.transform.position.y, -10f);
+        mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, newCameraPosition, cameraSpeedMove * Time.deltaTime);
+    }
+    
 
     void playerMovement()
     {
@@ -164,8 +197,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump") && isGrounded == true)
         {
-            playerRB.AddForce(new Vector2(0, jumpHeight));
-            
+            playerRB.AddForce(new Vector2(0, jumpHeight));            
         }
 
         if( Input.GetButtonDown("Jump") && isGrounded == false && isFlying== false && isAttacking == false)
