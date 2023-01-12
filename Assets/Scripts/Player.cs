@@ -34,16 +34,17 @@ public class Player : MonoBehaviour
     public float speedBall;
 
     [Header("Colliders")]
-    public Collider2D hammerHit;
-    public Collider2D colliderDefault;
-    public Collider2D colliderFlying;
-    public Collider2D colliderSwimming;
+    public Collider2D hammerHit;        
+    public CapsuleCollider2D capColliderDefault;
 
     [Header("Camera Settings")]
     public Camera mainCamera;
     public Transform leftCameraLimit;
     public Transform rightCameraLimit;    
     public float cameraSpeedMove;
+
+    [Header("Teste com variáveis")]
+    public bool estaDentroDaAgua;
     
 
     private bool isLookLeft;
@@ -59,9 +60,7 @@ public class Player : MonoBehaviour
     {
      //Colliders
        hammerHit.enabled = false;
-       colliderDefault.enabled = true;
-       colliderFlying.enabled = false;
-       colliderSwimming.enabled = false;
+       
 
      // Get Components
        playerRB = GetComponent<Rigidbody2D>();
@@ -95,12 +94,15 @@ public class Player : MonoBehaviour
     {
         switch(col.gameObject.tag)
         {            
-            case "Water":
-            isSwimming = true;
-            //playerRB.velocity = new Vector2 (0,0);
-            playerRB.gravityScale = gravitySwimming;
-            print("mudar animação para nadando");
+            case "Water":                        
+            playerRB.velocity = new Vector2 (0,0);
+            playerRB.gravityScale = gravitySwimming;            
             break;            
+            case "UnderWater":
+            isSwimming = true;
+            estaDentroDaAgua = true;
+            
+            break;
         }
 
     }
@@ -110,7 +112,8 @@ public class Player : MonoBehaviour
        {
         case "Water":
         isSwimming = false;
-        playerRB.gravityScale = gravityBase;
+        estaDentroDaAgua = false;
+        playerRB.gravityScale = gravityBase;    
         break;
        } 
     }
@@ -131,23 +134,23 @@ public class Player : MonoBehaviour
 
     void updateColliders()
     {
-    if( isFlying == false && isSwimming == false && colliderDefault.enabled == false ) 
+    if( isSwimming == true) 
         {
-            colliderDefault.enabled = true;
-            colliderFlying.enabled = false;
-            colliderSwimming.enabled = false;
+            capColliderDefault.direction = CapsuleDirection2D.Horizontal;
+            capColliderDefault.offset = new Vector2 (-0.022f , -0.049f);
+            capColliderDefault.size = new Vector2 (1.247f, 0.927f);
         }     
-    else if( isFlying == true && colliderFlying.enabled == false ) 
+    else if( isFlying == true) 
         {
-            colliderFlying.enabled = true;
-            colliderDefault.enabled = false;
-            colliderSwimming.enabled = false;
+            capColliderDefault.direction = CapsuleDirection2D.Horizontal;
+            capColliderDefault.offset = new Vector2(0.154f, 0.211f);
+            capColliderDefault.size = new Vector2(1.035f, 0.767f);
         }
-    else if(isSwimming == true && colliderSwimming.enabled == false)
+    else if(isFlying == false && isSwimming == false)
         {
-            colliderSwimming.enabled = true;
-            colliderDefault.enabled = false;
-            colliderFlying.enabled = false;
+            capColliderDefault.direction = CapsuleDirection2D.Vertical;
+            capColliderDefault.offset = new Vector2(-0.122f, 0.010f);
+            capColliderDefault.size = new Vector2(0.465f, 0.952f);
         }     
      
     }

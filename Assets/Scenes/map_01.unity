@@ -1438,6 +1438,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2010608326}
+  - {fileID: 2128146187}
+  - {fileID: 2096003477}
   m_Father: {fileID: 1861323083}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1899,7 +1901,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -16.478157, y: -1.6919973}
+  m_Offset: {x: -16.483564, y: -1.734514}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1910,7 +1912,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 9.335411, y: 1.9530932}
+  m_Size: {x: 10.773045, y: 2.732802}
   m_EdgeRadius: 0
 --- !u!1 &112010437
 GameObject:
@@ -29427,7 +29429,7 @@ GameObject:
   - component: {fileID: 2010608326}
   - component: {fileID: 2010608327}
   m_Layer: 4
-  m_Name: Limit
+  m_Name: divingLimit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30249,8 +30251,6 @@ GameObject:
   - component: {fileID: 2095019367}
   - component: {fileID: 2095019369}
   - component: {fileID: 2095019372}
-  - component: {fileID: 2095019373}
-  - component: {fileID: 2095019374}
   - component: {fileID: 2095019370}
   - component: {fileID: 2095019371}
   m_Layer: 0
@@ -30403,13 +30403,12 @@ MonoBehaviour:
   spawnBallLocation: {fileID: 1003443517}
   speedBall: 6
   hammerHit: {fileID: 121605251}
-  colliderDefault: {fileID: 2095019372}
-  colliderFlying: {fileID: 2095019373}
-  colliderSwimming: {fileID: 2095019374}
+  capColliderDefault: {fileID: 2095019372}
   mainCamera: {fileID: 1858219181}
   leftCameraLimit: {fileID: 1105521487}
   rightCameraLimit: {fileID: 706219192}
   cameraSpeedMove: 3
+  estaDentroDaAgua: 0
 --- !u!70 &2095019372
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -30426,38 +30425,64 @@ CapsuleCollider2D:
   m_Offset: {x: -0.12241745, y: 0.010501087}
   m_Size: {x: 0.46549606, y: 0.95203936}
   m_Direction: 0
---- !u!70 &2095019373
-CapsuleCollider2D:
+--- !u!1 &2096003476
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2095019365}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.15403025, y: 0.21107683}
-  m_Size: {x: 1.0358989, y: 0.76779157}
-  m_Direction: 1
---- !u!70 &2095019374
-CapsuleCollider2D:
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2096003477}
+  - component: {fileID: 2096003478}
+  m_Layer: 4
+  m_Name: waterSurface
+  m_TagString: WaterSurface
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2096003477
+Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2095019365}
+  m_GameObject: {fileID: 2096003476}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -16.96, y: -0.23, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 105271878}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &2096003478
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096003476}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.022637615, y: -0.049199644}
-  m_Size: {x: 1.247867, y: 0.92751384}
-  m_Direction: 1
+  m_Offset: {x: 0.47021008, y: -0.0069661215}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 9.185129, y: 0.2615968}
+  m_EdgeRadius: 0
 --- !u!1 &2099068534
 GameObject:
   m_ObjectHideFlags: 0
@@ -31842,6 +31867,60 @@ Transform:
   m_Father: {fileID: 411323164}
   m_RootOrder: 90
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2128146186
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2128146187}
+  - component: {fileID: 2128146188}
+  m_Layer: 4
+  m_Name: divingLine
+  m_TagString: UnderWater
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2128146187
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128146186}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -16.478, y: -0.815, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 105271878}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!68 &2128146188
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128146186}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -5.48288, y: 0.0066973567}
+  - {x: 5.4828796, y: 0.0066973567}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &2137586722
 GameObject:
   m_ObjectHideFlags: 0
