@@ -36,6 +36,12 @@ public class Player : MonoBehaviour
     [Header("Colliders")]
     public Collider2D hammerHit;        
     public CapsuleCollider2D capColliderDefault;
+    public Vector2 defaultOffset;
+    public Vector2 defaultSize;
+    public Vector2 flyingOffset;
+    public Vector2 flyingSize;
+    public Vector2 swimmingOffset;
+    public Vector2 swimmingSize;
 
     [Header("Camera Settings")]
     public Camera mainCamera;
@@ -52,9 +58,11 @@ public class Player : MonoBehaviour
     private bool isAttacking;
     private bool isFlying;
     private bool isSwimming;
-    private bool isWaterSurface;    
+    private bool isWaterSurface;
+    private bool isStartingFly;
     private float directionMovement;
     private float gravityBase;
+    
 
     void Start()
     {
@@ -84,6 +92,7 @@ public class Player : MonoBehaviour
         if(isGrounded == true && isFlying== true)
         {
             isFlying = false;
+            isStartingFly= false;
             playerRB.gravityScale = gravityBase;
         }
     }
@@ -94,14 +103,22 @@ public class Player : MonoBehaviour
     {
         switch(col.gameObject.tag)
         {            
-            case "Water":                        
-            playerRB.velocity = new Vector2 (0,0);
-            playerRB.gravityScale = gravitySwimming;            
-            break;            
-            case "UnderWater":
-            isSwimming = true;
-            estaDentroDaAgua = true;
-            
+            case "Water":
+                isFlying = false;
+                isStartingFly = false;
+                isWaterSurface = false;
+                if(isSwimming == false)
+                {
+                    playerRB.velocity = new Vector2(0, 0);
+                }
+            break;   
+                
+            case "UnderWater":                                    
+                    isSwimming = true;
+            break;
+
+            case "WaterSurface":                
+                isWaterSurface = true;
             break;
         }
 
@@ -111,11 +128,14 @@ public class Player : MonoBehaviour
        switch(coll.gameObject.tag)
        {
         case "Water":
-        isSwimming = false;
-        estaDentroDaAgua = false;
+        isSwimming = false;        
         playerRB.gravityScale = gravityBase;    
         break;
-       } 
+
+            case "WaterSurface":
+                isWaterSurface = false;                
+            break;
+        } 
     }
     
 
@@ -137,20 +157,21 @@ public class Player : MonoBehaviour
     if( isSwimming == true) 
         {
             capColliderDefault.direction = CapsuleDirection2D.Horizontal;
-            capColliderDefault.offset = new Vector2 (-0.022f , -0.049f);
-            capColliderDefault.size = new Vector2 (1.247f, 0.927f);
+            capColliderDefault.offset = swimmingOffset;
+            capColliderDefault.size = swimmingSize;
+            playerRB.gravityScale = gravitySwimming;            
         }     
     else if( isFlying == true) 
         {
             capColliderDefault.direction = CapsuleDirection2D.Horizontal;
-            capColliderDefault.offset = new Vector2(0.154f, 0.211f);
-            capColliderDefault.size = new Vector2(1.035f, 0.767f);
+            capColliderDefault.offset = flyingOffset;
+            capColliderDefault.size = flyingSize;
         }
     else if(isFlying == false && isSwimming == false)
         {
             capColliderDefault.direction = CapsuleDirection2D.Vertical;
-            capColliderDefault.offset = new Vector2(-0.122f, 0.010f);
-            capColliderDefault.size = new Vector2(0.465f, 0.952f);
+            capColliderDefault.offset = defaultOffset;
+            capColliderDefault.size = defaultSize;
         }     
      
     }
@@ -205,8 +226,12 @@ public class Player : MonoBehaviour
 
         if( Input.GetButtonDown("Jump") && isGrounded == false && isFlying== false && isAttacking == false)
         {
-            isFlying = true;            
-            playerRB.velocity = new Vector2(playerRB.velocity.x, addHeightFlight);
+            isFlying = true;
+            if (isStartingFly == false)
+            {
+                playerRB.velocity = new Vector2(playerRB.velocity.x, addHeightFlight);
+                isStartingFly= true;
+            }
             playerRB.gravityScale = gravityFlying;
         }
         if (Input.GetButtonUp("Jump"))
@@ -242,8 +267,7 @@ public class Player : MonoBehaviour
         }
         else if(Input.GetButtonDown("Jump") && isWaterSurface == true)
         {
-           playerRB.AddForce(new Vector2(0, jumpHeight)); 
-           print("pulo na superficie");
+           playerRB.AddForce(new Vector2(0, jumpHeight));            
         }
     }
 
