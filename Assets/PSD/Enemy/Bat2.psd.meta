@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f1d8eec377dd0734d802d0a83c6a5d96
+guid: f907ba6a632dfc443942b9df8740b5b5
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -141,13 +141,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ring_0
+      name: Bat2_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 64
+        width: 200
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,20 +155,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 606ca9dd84f06c245abd6bbde497d03e
-      internalID: 200230689
+      spriteID: dff814462334d9249b776c2945285454
+      internalID: 123483402
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ring_1
+      name: Bat2_1
       rect:
         serializedVersion: 2
-        x: 64
+        x: 200
         y: 0
-        width: 64
-        height: 64
+        width: 200
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,20 +176,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 48b41b575c6ac57438286a6da9b258db
-      internalID: -383139012
+      spriteID: 0ce29ace206e78e4c84eda797aa19218
+      internalID: -468087559
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ring_2
+      name: Bat2_2
       rect:
         serializedVersion: 2
-        x: 128
+        x: 400
         y: 0
-        width: 64
-        height: 64
+        width: 200
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,92 +197,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 56eae86be5c3b1c478ad8d2704ea1e21
-      internalID: -1342294236
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ring_3
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: df380b0c3650feb46b18b0f563010e89
-      internalID: 764316482
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ring_4
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 903c95b6241251d4ca62420700a2679c
-      internalID: -840840261
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ring_5
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e303df8069c672b4ab0430c4ce879f37
-      internalID: -1492261330
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ring_6
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6ecae0e2bdf5c0840811068a7e93a02d
-      internalID: -936025254
+      spriteID: ddf0362fd593f8b42929a1d394201cca
+      internalID: -1617591801
       vertices: []
       indices: 
       edges: []
@@ -298,13 +214,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Ring_3: 764316482
-      Ring_6: -936025254
-      Ring_5: -1492261330
-      Ring_1: -383139012
-      Ring_4: -840840261
-      Ring_0: 200230689
-      Ring_2: -1342294236
+      Bat2_0: 123483402
+      Bat2_2: -1617591801
+      Bat2_1: -468087559
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 1

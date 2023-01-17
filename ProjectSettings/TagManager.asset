@@ -11,6 +11,7 @@ TagManager:
   - Water
   - WaterSurface
   - UnderWater
+  - HammerHit
   layers:
   - Default
   - TransparentFX
