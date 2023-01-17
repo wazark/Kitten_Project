@@ -12,6 +12,7 @@ TagManager:
   - WaterSurface
   - UnderWater
   - HammerHit
+  - BallHit
   layers:
   - Default
   - TransparentFX

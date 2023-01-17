@@ -15,8 +15,13 @@ public class Player : MonoBehaviour
     public float jumpHeight;    
     public float addHeightFlight;
     public float swimmingImpulse;
+    
+
+    [Header("Player Attack Settings")]
     public float attackSpeed;
-    public float speedBall; 
+    public float speedBall;
+    public int hammerDamage;
+    public int ballDamage;
 
     // Privates Variables
     private bool isLookLeft;

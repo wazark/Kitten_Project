@@ -14554,6 +14554,7 @@ GameObject:
   - component: {fileID: 925471884}
   - component: {fileID: 925471883}
   - component: {fileID: 925471887}
+  - component: {fileID: 925471888}
   m_Layer: 0
   m_Name: Dino1
   m_TagString: Untagged
@@ -14677,6 +14678,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76fae8924c15dab48b3550da27fac83a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyLifeMax: 10
+--- !u!114 &925471888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925471882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eb20111f25e7a140989c6dbd5dcdaaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistance: 3
+  speed: 4
+  chaseSpeed: 8
+  respawnDelay: 10
+  respawnOnDeath: 1
 --- !u!1 &931048516
 GameObject:
   m_ObjectHideFlags: 0
@@ -31264,7 +31283,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2095019365}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -25.62, y: 0.466, z: 0}
+  m_LocalPosition: {x: -32.23, y: 0.466, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -31336,6 +31355,8 @@ MonoBehaviour:
   swimmingImpulse: 30
   attackSpeed: 0.4
   speedBall: 6
+  hammerDamage: 5
+  ballDamage: 2
 --- !u!70 &2095019372
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
