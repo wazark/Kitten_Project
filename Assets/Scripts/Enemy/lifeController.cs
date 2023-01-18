@@ -7,8 +7,9 @@ public class lifeController : MonoBehaviour
     // Get Componnets and Scripts
     private GameController _gameController;
     private Player _player;
-    [Header("Enemy Settings")]
+    private Animator enemyAnim;
 
+    [Header("Enemy Settings")]
     public int enemyLifeMax;
 
 
@@ -16,11 +17,13 @@ public class lifeController : MonoBehaviour
 
     // Private Variables
     private bool isHitted;
+    
 
     void Start()
     {
         _gameController = FindObjectOfType(typeof(GameController)) as GameController;
         _player = FindObjectOfType(typeof(Player)) as Player;
+        enemyAnim = GetComponent<Animator>();
     }
 
     
@@ -34,29 +37,35 @@ public class lifeController : MonoBehaviour
         switch (coll.gameObject.tag)
         {
             case "HammerHit":
-                if (isHitted == false)
+                if (!isHitted)
                 {
                     isHitted = true;
                     StartCoroutine(hitVFXDelay());
                     GameObject temp = Instantiate(_gameController.hitPrefab, transform.position, transform.localRotation);
                     damageController(_player.hammerDamage);
+                    enemyAnim.SetTrigger("isHitted");
+
                 }
             break;
 
             case "BallHit":
 
                 Destroy(coll.gameObject,0.1f);
-                if (isHitted == false)
+                if (!isHitted)
                 {
                     isHitted = true;
                     StartCoroutine(hitVFXDelay());
                     GameObject temp = Instantiate(_gameController.hitPrefab, transform.position, transform.localRotation);
                     damageController(_player.ballDamage);
+                    enemyAnim.SetTrigger("isHitted");
                 }
                 break;
         }
     }
-
+    void updateAnimator()
+    {
+        enemyAnim.SetTrigger("isHitted");
+    }
     void damageController(int dmg)
     {
         enemyLifeMax -= dmg;
